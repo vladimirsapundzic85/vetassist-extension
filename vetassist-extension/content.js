@@ -39,12 +39,17 @@
 
     for (const tool of data.tools) {
 
-      const r = await fetch(tool.url);
-      const code = await r.text();
+      try {
 
-      eval(code);
+        await import(tool.url);
 
-      console.log("VetAssist loaded:", tool.tool_code);
+        console.log("VetAssist loaded:", tool.tool_code);
+
+      } catch (e) {
+
+        console.log("VetAssist load error:", tool.tool_code, e);
+
+      }
 
     }
 
