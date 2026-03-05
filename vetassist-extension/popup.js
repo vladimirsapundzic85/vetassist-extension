@@ -1,20 +1,50 @@
-const $ = (id) => document.getElementById(id);
+function normalizeLicenseKey(input) {
+  let s = String(input || "").trim();
 
-async function load() {
-  const { license_key, device_id } = await chrome.storage.sync.get(["license_key", "device_id"]);
-  if (license_key) $("license").value = license_key;
-  if (device_id) $("deviceId").value = device_id;
+  // remove common prefixes like "License key", "Licence key", with optional ":" or "-"
+  s = s.replace(/^\s*(licen[cs]e\s*key)\s*[:\-]?\s*/i, "");
+
+  // remove any remaining leading junk
+  s = s.trim();
+
+  // keep only letters, digits, hyphen; convert spaces/underscores to hyphen
+  s = s.replace(/[\s_]+/g, "-");
+  s = s.replace(/[^a-z0-9-]/gi, "");
+  s = s.toUpperCase();
+
+  // collapse multiple hyphens
+  s = s.replace(/-+/g, "-");
+  s = s.replace(/^-+|-+$/g, "");
+
+  return s;
 }
 
-$("save").addEventListener("click", async () => {
-  const license_key = $("license").value.trim();
-  const device_id = $("deviceId").value.trim();
+function normalizeDeviceId(input) {
+  let s = String(input || "").trim();
+  // keep it simple, but remove weird whitespace
+  s = s.replace(/\s+/g, " ");
+  return s;
+}
 
-  if (!license_key) return ($("msg").textContent = "Missing license key.");
-  if (!device_id) return ($("msg").textContent = "Missing device id.");
+document.addEventListener("DOMContentLoaded", async () => {
+  const licenseEl = document.getElementById("license_key");
+  const deviceEl = document.getElementById("device_id");
+  const saveBtn = document.getElementById("save");
 
-  await chrome.storage.sync.set({ license_key, device_id });
-  $("msg").textContent = "Saved.";
+  const cfg = await chrome.storage.sync.get(["license_key", "device_id"]);
+  if (licenseEl) licenseEl.value = cfg.license_key || "";
+  if (deviceEl) deviceEl.value = cfg.device_id || "";
+
+  saveBtn?.addEventListener("click", async () => {
+    const rawLicense = licenseEl?.value ?? "";
+    const rawDevice = deviceEl?.value ?? "";
+
+    const license_key = normalizeLicenseKey(rawLicense);
+    const device_id = normalizeDeviceId(rawDevice);
+
+    await chrome.storage.sync.set({ license_key, device_id });
+
+    // optional: show in console for debugging
+    console.log("VetAssist saved:", { license_key, device_id });
+  });
 });
-
-load();
