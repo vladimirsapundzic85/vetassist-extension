@@ -2,7 +2,6 @@
 
   const cfg = await chrome.storage.sync.get(["license_key", "device_id"]);
 
-  // očisti license key
   const license_key = (cfg.license_key || "")
     .replace("License key", "")
     .trim()
@@ -40,11 +39,10 @@
 
     for (const tool of data.tools) {
 
-      const script = document.createElement("script");
-      script.src = tool.url;
-      script.type = "text/javascript";
+      const r = await fetch(tool.url);
+      const code = await r.text();
 
-      document.documentElement.appendChild(script);
+      eval(code);
 
       console.log("VetAssist loaded:", tool.tool_code);
 
