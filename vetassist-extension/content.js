@@ -2,7 +2,13 @@
 
   const cfg = await chrome.storage.sync.get(["license_key", "device_id"]);
 
-  if (!cfg.license_key || !cfg.device_id) {
+  // očisti license key
+  const license_key = (cfg.license_key || "")
+    .replace("License key", "")
+    .trim()
+    .toUpperCase();
+
+  if (!license_key || !cfg.device_id) {
     console.log("VetAssist: license not configured");
     return;
   }
@@ -17,7 +23,7 @@
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        license_key: cfg.license_key,
+        license_key: license_key,
         device_id: cfg.device_id,
         device_fp: device_fp
       })
