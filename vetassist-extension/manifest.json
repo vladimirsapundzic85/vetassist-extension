@@ -3,23 +3,26 @@
   "name": "VetAssist Loader",
   "version": "0.1.0",
   "description": "Loads licensed VetAssist tools into AIRS.",
-  "permissions": ["storage", "scripting"],
+  "action": {
+    "default_title": "VetAssist Loader",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage"],
   "host_permissions": [
     "https://airsso.vet.minpolj.gov.rs/*",
     "https://vetasist-app.vercel.app/*"
   ],
-  "action": {
-    "default_title": "VetAssist",
-    "default_popup": "popup.html"
-  },
-  "background": {
-    "service_worker": "sw.js"
-  },
   "content_scripts": [
     {
       "matches": ["https://airsso.vet.minpolj.gov.rs/*"],
       "js": ["content.js"],
-      "run_at": "document_idle"
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["tools/*/*/*.js"],
+      "matches": ["https://airsso.vet.minpolj.gov.rs/*"]
     }
   ]
 }
