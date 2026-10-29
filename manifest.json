@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "VetAsist",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Automatizacija rada u AIRS sistemu — obrada HID-ova, izvoz Excel izveštaja i analiza promena na gazdinstvima.",
   "icons": {
     "16": "icons/va_icon16.png",
@@ -41,6 +41,16 @@
       ],
       "run_at": "document_idle",
       "all_frames": true
+    },
+    {
+      "matches": [
+        "https://airsso.vet.minpolj.gov.rs/*"
+      ],
+      "js": [
+        "remote-content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
     }
   ],
   "web_accessible_resources": [

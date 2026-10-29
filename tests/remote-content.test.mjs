@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import { readFile } from 'node:fs/promises';
+const code = await readFile(new URL('../remote-content.js', import.meta.url), 'utf8');
+test('content correlates result with job ID and refuses a busy manual tab', async () => {
+  const storage = new Map(); let listener;
+  const doc = { body: { innerText: 'Log Out' }, querySelectorAll: () => [] };
+  const win = { document: doc, frames: [], dispatchEvent() {} }; win.top = win;
+  const context = { window: win, sessionStorage: { getItem: k => storage.get(k) || null, setItem: (k,v) => storage.set(k,v), removeItem: k => storage.delete(k) }, chrome: { runtime: { id: 'ext', onMessage: { addListener: fn => { listener = fn; } }, sendMessage: async () => ({ ok: true }) } }, CustomEvent: class {} };
+  vm.runInNewContext(code, context);
+  const ask = msg => new Promise(resolve => listener(msg, { id: 'ext' }, resolve));
+  assert.equal((await ask({ type: 'VA_REMOTE_STATUS' })).status, 'ready');
+  storage.set('vetassist_active_tool_v1', 'manual-tool');
+  assert.equal((await ask({ type: 'VA_REMOTE_STATUS' })).status, 'busy');
+  storage.delete('vetassist_active_tool_v1');
+  storage.set('vetassist_goveda_pregled_kretanja_v103', JSON.stringify({ remoteJobId: 'old', phase: 'done', results: [] }));
+  assert.equal((await ask({ type: 'VA_REMOTE_STATUS', job_id: 'new' })).status, 'interrupted');
+  storage.set('vetassist_goveda_pregled_kretanja_v103', JSON.stringify({ remoteJobId: 'new', phase: 'done', results: [{ id: 'test' }] }));
+  assert.equal((await ask({ type: 'VA_REMOTE_STATUS', job_id: 'new' })).status, 'completed');
+});
