@@ -1,0 +1,9 @@
+{
+  "code": "goveda_drzavna_zemlja",
+  "name": "Spisak za državnu zemlju (goveda)",
+  "version": "1.0.0",
+  "files": [
+    "tools/goveda_drzavna_zemlja/1.0.0/vendor/xlsx.full.min.js",
+    "tools/goveda_drzavna_zemlja/1.0.0/script.js"
+  ]
+}

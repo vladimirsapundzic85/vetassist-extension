@@ -1,0 +1,9 @@
+{
+  "code": "hid_koordinate_xlsx",
+  "name": "HID koordinate XLSX",
+  "version": "1.0.0",
+  "files": [
+    "tools/hid_koordinate_xlsx/1.0.0/vendor/xlsx.full.min.js",
+    "tools/hid_koordinate_xlsx/1.0.0/script.js"
+  ]
+}

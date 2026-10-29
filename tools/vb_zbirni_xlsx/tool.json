@@ -1,0 +1,9 @@
+{
+  "code": "vb_zbirni_xlsx",
+  "name": "VB Zbirni XLSX",
+  "version": "1.0.1",
+  "files": [
+    "tools/vb_zbirni_xlsx/1.0.1/vendor/xlsx.full.min.js",
+    "tools/vb_zbirni_xlsx/1.0.1/script.js"
+  ]
+}

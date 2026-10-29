@@ -1,0 +1,8 @@
+{
+  "code": "ovkoze_otvori_grla_tab",
+  "name": "Brzi pregled grla (ovce/koze)",
+  "version": "1.0.3",
+  "files": [
+    "tools/ovkoze_otvori_grla_tab/1.0.0/script.js"
+  ]
+}

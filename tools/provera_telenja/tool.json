@@ -1,0 +1,8 @@
+{
+  "code": "provera_telenja",
+  "name": "Provera telenja",
+  "version": "1.0.0",
+  "files": [
+    "tools/provera_telenja/1.0.0/script.js"
+  ]
+}

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VetAsist</title>
+  <style>
+    body {
+      font: 13px/1.4 Arial, sans-serif;
+      margin: 12px;
+      width: 360px;
+      color: #222;
+    }
+
+    .title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .muted {
+      opacity: 0.75;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 4px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .row {
+      margin-top: 10px;
+    }
+
+    .ok {
+      color: #0a7;
+      font-weight: 700;
+    }
+
+    .bad {
+      color: #c00;
+      font-weight: 700;
+    }
+
+    .card {
+      margin-top: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fafafa;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+
+    .check-list {
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    .check-list li {
+      margin: 4px 0;
+    }
+
+    .mono {
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      word-break: break-all;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 6px 10px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .meta-label {
+      font-weight: 700;
+      color: #444;
+    }
+
+    .meta-value {
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="pinWarning"
+    style="
+      display:none;
+      background:#fff8db;
+      border:1px solid #f5d565;
+      color:#6b5500;
+      padding:10px;
+      border-radius:8px;
+      margin-bottom:12px;
+      font-size:13px;
+      line-height:1.4;
+    "
+  >
+    <b>Preporuka:</b><br>
+    Pinujte VetAsist ekstenziju radi lakšeg pristupa.<br><br>
+    1. Kliknite na puzzle ikonicu gore desno<br>
+    2. Pronađite VetAsist<br>
+    3. Kliknite na 📌 Pin
+  </div>
+
+  <div class="title">VetAsist Loader</div>
+  <div class="muted">Licenca kontroliše učitavanje alata. AIRS setup pomaže da sve radi bez ručnog petljanja.</div>
+
+  <button id="toggle_panel">Zatvori VetAsist panel</button>
+  <div class="row" id="panel_status"></div>
+
+  <label for="license_key">License key</label>
+  <input id="license_key" placeholder="VTS-XXXX-XXXX-XXXX" />
+
+  <button id="save">Sačuvaj i proveri licencu</button>
+
+  <div class="row" id="status"></div>
+
+  <div>
+    <b>Verzija ekstenzije:</b> <span id="ext_version"></span><br>
+    <span id="ext_update"></span><br>
+    <button id="ext_update_btn" style="display:none;">Ažuriraj ekstenziju</button>
+  </div>
+
+  <div class="card">
+    <h3>Status licence i uređaja</h3>
+
+    <div class="meta-grid">
+      <div class="meta-label">Device ID</div>
+      <div class="meta-value mono" id="device_id_display">—</div>
+
+      <div class="meta-label">Device FP</div>
+      <div class="meta-value mono" id="device_fp_display">—</div>
+
+      <div class="meta-label">Plan</div>
+      <div class="meta-value" id="license_plan">—</div>
+
+      <div class="meta-label">Status</div>
+      <div class="meta-value" id="license_status_text">—</div>
+
+      <div class="meta-label">Valid until</div>
+      <div class="meta-value" id="license_valid_until">—</div>
+
+      <div class="meta-label">Aktivni uređaji</div>
+      <div class="meta-value" id="license_device_count">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>AIRS setup</h3>
+    <div class="muted" style="margin-bottom:8px;">
+      Ovim dugmetom ekstenzija pokušava da podesi AIRS sajt da dozvoli rad alata i automatska preuzimanja.
+    </div>
+
+    <button id="setup_airs">Podesi AIRS</button>
+
+    <div class="row" id="airs_status"></div>
+
+    <ul class="check-list" id="airs_checks">
+      <li>JavaScript: <span id="check_js">nepoznato</span></li>
+      <li>Pop-ups: <span id="check_popups">nepoznato</span></li>
+      <li>Automatic downloads: <span id="check_downloads">nepoznato</span></li>
+    </ul>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

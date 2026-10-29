@@ -1,0 +1,8 @@
+{
+  "code": "hid_bpg_verifikacija",
+  "name": "Provera gazdinstva (HID/BPG)",
+  "version": "1.0.0",
+  "files": [
+    "tools/hid_bpg_verifikacija/1.0.0/script.js"
+  ]
+}

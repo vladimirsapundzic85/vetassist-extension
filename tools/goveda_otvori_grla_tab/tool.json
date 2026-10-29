@@ -1,0 +1,8 @@
+{
+  "code": "goveda_otvori_grla_tab",
+  "name": "Brzi pregled grla (goveda)",
+  "version": "1.0.1",
+  "files": [
+    "tools/goveda_otvori_grla_tab/1.0.1/script.js"
+  ]
+}

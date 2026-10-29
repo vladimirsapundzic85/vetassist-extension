@@ -1,0 +1,8 @@
+{
+  "code": "ovkoze_kontrola_evidencije",
+  "name": "Kontrola evidencije (ovce/koze)",
+  "version": "1.0.0",
+  "files": [
+    "tools/ovkoze_kontrola_evidencije/1.0.0/script.js"
+  ]
+}
