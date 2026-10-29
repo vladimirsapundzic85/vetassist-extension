@@ -868,6 +868,10 @@
   }
 
   async function runTool(tool, runBtn) {
+    if (sessionStorage.getItem("vetassist_remote_job_v1")) {
+      alert("GOO provera je u toku. Za prekid isključite prijem zadataka u ekstenziji.");
+      return { ok: false, error: "remote_job_active" };
+    }
     if (isActiveToolLocked()) {
       console.warn("VetAssist: tool launch already in progress");
       return { ok: false, error: "tool_launch_locked" };

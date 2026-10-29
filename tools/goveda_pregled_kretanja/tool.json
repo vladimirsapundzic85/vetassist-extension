@@ -1,8 +1,8 @@
 {
   "code": "goveda_pregled_kretanja",
   "name": "Pregled kretanja GOVEDA",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "files": [
-    "tools/goveda_pregled_kretanja/1.0.2/script.js"
+    "tools/goveda_pregled_kretanja/1.0.3/script.js"
   ]
 }

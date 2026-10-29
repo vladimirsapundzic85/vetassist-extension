@@ -1,3 +1,4 @@
+import { installRemoteWorker } from "./remote-worker.js";
 import { TOOL_REGISTRY } from "./tools/registry.js";
 
 const DEVICE_KEY = "device_id";
@@ -832,3 +833,4 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
   return true;
 });
+installRemoteWorker({ ensureDeviceId, ensureDeviceFingerprint });
