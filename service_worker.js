@@ -704,6 +704,9 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  // These messages are handled by remote-worker.js; avoid replying UNKNOWN_MESSAGE here.
+  if (["VA_REMOTE_GET", "VA_REMOTE_SET", "VA_REMOTE_WAKE"].includes(msg?.type)) return false;
+
   (async () => {
     try {
       if (msg?.type === "GET_DEVICE_ID") {
